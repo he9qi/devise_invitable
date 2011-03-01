@@ -4,6 +4,7 @@ class DeviseInvitableAddTo<%= table_name.camelize %> < ActiveRecord::Migration
       t.string   :invitation_token, :limit => 20
       t.datetime :invitation_sent_at
       t.index    :invitation_token # for invitable
+      t.integer  :inviter_id # one who invites
     end
     
     # And allow null encrypted_password and password_salt:
