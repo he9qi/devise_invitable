@@ -133,6 +133,7 @@ module Devise
           invitable.errors.add(:invitation_token, :invalid) if attributes[:invitation_token] && !invitable.new_record? && !invitable.valid_invitation?
           if invitable.errors.empty?
             invitable.attributes = attributes
+            invitable.username   = attributes[:username]
             invitable.accept_invitation!
           end
           invitable
