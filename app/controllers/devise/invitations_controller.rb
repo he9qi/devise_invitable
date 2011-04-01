@@ -25,8 +25,15 @@ class Devise::InvitationsController < ApplicationController
 
   # GET /resource/invitation/accept?invitation_token=abcdef
   def edit
-    self.resource = resource_class.new
-    resource.invitation_token = params[:invitation_token]
+    if params[:id]
+      self.resource = resource_class.find(params[:id])
+      raise 'token not valid' if resource.invitation_token != params[:invitation_token]
+      self.resource.username = params[:username]
+    else
+      self.resource = resource_class.new
+      resource.invitation_token = params[:invitation_token]
+    end
+    
     render_with_scope :edit
   end
 
